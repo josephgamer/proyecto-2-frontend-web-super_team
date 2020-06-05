@@ -35,6 +35,7 @@
             <th>Lugar de atención</th>
             <th>Doctor</th>
             <th>Costo Final</th>
+            <th></th>
 
         </tr>
         </thead>
@@ -53,6 +54,7 @@
             <td th:text="${patient.appointment.consulting_room.name}">name</td>
             <td th:text="${patient.appointment.consulting_room.nameDoctor}">nameDoctor</td>
             <td th:text="${patient.appointment.serviciosMedicos.costoFinal}">costoFinal</td>
+            <td><a href="/confirm">Edit</a></td>
 
         </tr>
         </tbody>
