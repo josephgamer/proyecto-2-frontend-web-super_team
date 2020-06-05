@@ -32,4 +32,43 @@ public class Service {
 
         return appointments;
     }
+
+    public List<Patient> searchByName(String name) throws Exception {
+        List<Patient> result = new ArrayList<>();
+        List<Patient> appointments = allAppointments();
+        if (!appointments.isEmpty()) {
+            for (Patient patient : appointments) {
+                if (patient.getFirstName().equals(name)) {
+                    result.add(patient);
+                }
+            }
+        }
+        return result;
+    }
+
+    public List<Patient> searchById(String id) throws Exception {
+        List<Patient> result = new ArrayList<>();
+        List<Patient> appointments = allAppointments();
+        if (!appointments.isEmpty()) {
+            for (Patient patient : appointments) {
+                if (patient.getId().get$oid().equals(id)) {
+                    result.add(patient);
+                }
+            }
+        }
+        return result;
+    }
+
+    public List<Patient> searchByNumber(int number) throws Exception {
+        List<Patient> result = new ArrayList<>();
+        List<Patient> appointments = allAppointments();
+        if (!appointments.isEmpty()) {
+            for (Patient patient : appointments) {
+                if (patient.getAppointment().getNumCita() == number) {
+                    result.add(patient);
+                }
+            }
+        }
+        return result;
+    }
 }
