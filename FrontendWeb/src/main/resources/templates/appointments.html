@@ -1,10 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Appointments List</title>
 </head>
 <body>
+<div align="center">
+<h1>Appointments List</h1>
+    <br/><br/>
+    <form action="#" th:action="@{/appointments}" method="get">
+        <label>Filter by: </label>
+        <input type="text" name="filterTxt" id="filterTxt" placeholder="Text to Filter">
+        <button type="submit">Filter</button>
+    </form>
+    <br/>
 
+    <table border="1" cellpadding="10">
+        <thead>
+        <tr>
+            <th>Numero de la cita</th>
+            <th>Numero de cedula</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Servicio</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Motivo de la cita</th>
+            <th>Estado de atención</th>
+            <th>Confirmar cita</th>
+            <th>Lugar de atención</th>
+            <th>Doctor</th>
+            <th>Costo Final</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="patient : ${arrayAppointments}">
+            <td th:text="${patient.appointment.numCita}"></td>
+            <td th:text="${patient.id.$oid}">id</td>
+            <td th:text="${patient.firstName}">firstName</td>
+            <td th:text="${patient.lastName}">lastName</td>
+            <td th:text="${patient.appointment.serviciosMedicos.servicio}">servicio</td>
+            <td th:text="${patient.appointment.date}">date</td>
+            <td th:text="${patient.appointment.hour}">hour</td>
+            <td th:text="${patient.appointment.reason}">reason</td>
+            <td th:text="${patient.appointment.state}">state</td>
+            <td th:text="${patient.appointment.confirm}">confirm</td>
+            <td th:text="${patient.appointment.consulting_room.name}">name</td>
+            <td th:text="${patient.appointment.consulting_room.nameDoctor}">nameDoctor</td>
+            <td th:text="${patient.appointment.serviciosMedicos.costoFinal}">costoFinal</td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>>
 </body>
 </html>
