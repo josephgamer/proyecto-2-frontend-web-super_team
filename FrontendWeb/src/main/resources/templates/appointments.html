@@ -9,8 +9,12 @@
 <h1>Appointments List</h1>
     <br/><br/>
     <form action="#" th:action="@{/appointments}" method="get">
-        <label>Filter by: </label>
-        <input type="text" name="filterTxt" id="filterTxt" placeholder="Text to Filter">
+        <label>Search by appointment number: </label>
+        <input type="text" name="numberTxt" id="numberTxt" placeholder="Number to Filter">
+        <label>Search by id:</label>
+        <input type="text" name="idTxt" id="idTxt" placeholder="ID to filter">
+        <label>Search by name:</label>
+        <input type="text" name="nameTxt" id="nameTxt" placeholder="Name to filter">
         <button type="submit">Filter</button>
     </form>
     <br/>
