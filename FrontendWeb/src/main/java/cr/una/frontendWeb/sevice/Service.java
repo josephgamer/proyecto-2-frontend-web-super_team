@@ -71,4 +71,8 @@ public class Service {
         }
         return result;
     }
+
+    public void updateAppointment(Patient patient) {
+        System.out.println(patient.toString());
+    }
 }

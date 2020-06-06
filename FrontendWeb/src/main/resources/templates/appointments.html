@@ -54,7 +54,7 @@
             <td th:text="${patient.appointment.consulting_room.name}">name</td>
             <td th:text="${patient.appointment.consulting_room.nameDoctor}">nameDoctor</td>
             <td th:text="${patient.appointment.serviciosMedicos.costoFinal}">costoFinal</td>
-            <td><a href="/confirm">Edit</a></td>
+            <td><a th:href="@{/edit/{numCita}(numCita=${patient.appointment.numCita})}">Edit</a></td>
 
         </tr>
         </tbody>

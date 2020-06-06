@@ -4,7 +4,9 @@ import cr.una.frontendWeb.model.Patient;
 import cr.una.frontendWeb.sevice.Service;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -50,6 +52,35 @@ public class AppointmentController {
                     }
                 }
             }
+            model.addAttribute("arrayAppointments", arrayAppointments);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "appointments";
+    }
+
+    @GetMapping("/edit/{numCita}")
+    public String confirm(@PathVariable("numCita") int numCita, Model model) {
+        try {
+            List<Patient> patients = service.searchByNumber(numCita);
+            Patient patient = patients.get(0);
+            model.addAttribute("patient", patient);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "confirm";
+    }
+
+    @PostMapping("/update/{numCita}")
+    public String confirm(@PathVariable("numCita") int numCita, @Valid Patient patient,
+                          BindingResult result, Model model) {
+        try {
+            if (result.hasErrors()) {
+                return "appointments";
+            }
+
+            service.updateAppointment(patient);
+            List<Patient> arrayAppointments = service.allAppointments();
             model.addAttribute("arrayAppointments", arrayAppointments);
         } catch (Exception e) {
             e.printStackTrace();
