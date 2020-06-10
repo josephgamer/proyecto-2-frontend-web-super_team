@@ -1,11 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Confirm Appointments</title>
 </head>
 <body>
 <h1>Confirm Appointments</h1>
+<div>
+    <div>Numero de cita:<span th:text="${patient.appointment.numCita} ">Numero cita</span> </div>
+    <div>Cedula paciente:<span th:text="${patient.id.$oid} ">id</span> </div>
+    <div>Nombre paciente:<span th:text="${patient.firstName} ">firstName</span> </div>
+    <div>Apellido paciente:<span th:text="${patient.lastName} ">lastName</span> </div>
+    <div>Fecha de la cita:<span th:text="${patient.appointment.date} ">fecha</span> </div>
+    <div>Hora de la cita:<span th:text="${patient.appointment.hour} ">hora</span> </div>
+    <div>Servicio medico:<span th:text="${patient.appointment.serviciosMedicos.servicio} ">servicio</span> </div>
+    <div>Costo total:<span th:text="${patient.appointment.serviciosMedicos.costoFinal} ">servicio</span> </div>
 
+    <a th:href="@{/confirmar/{numCita}(numCita=${patient.appointment.numCita})}">Confirmar</a>
+</div>
 </body>
 </html>

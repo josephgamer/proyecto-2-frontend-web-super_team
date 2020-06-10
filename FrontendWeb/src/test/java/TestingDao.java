@@ -20,4 +20,12 @@ public class TestingDao {
             System.out.println(patient.toString());
         }
     }
+
+    @Test
+    public void searchAppointment() throws Exception {
+        Service service = new Service();
+        Patient patient = service.searchAppointment(1);
+        assertNotNull(patient);
+        System.out.println(patient.toString());
+    }
 }

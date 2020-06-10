@@ -1,13 +1,12 @@
 package cr.una.frontendWeb.controller;
 
+import cr.una.frontendWeb.model.Appointment;
 import cr.una.frontendWeb.model.Patient;
 import cr.una.frontendWeb.sevice.Service;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -62,8 +61,7 @@ public class AppointmentController {
     @GetMapping("/edit/{numCita}")
     public String confirm(@PathVariable("numCita") int numCita, Model model) {
         try {
-            List<Patient> patients = service.searchByNumber(numCita);
-            Patient patient = patients.get(0);
+            Patient patient = service.searchAppointment(numCita);
             model.addAttribute("patient", patient);
         } catch (Exception e) {
             e.printStackTrace();
@@ -71,20 +69,32 @@ public class AppointmentController {
         return "confirm";
     }
 
-    @PostMapping("/update/{numCita}")
-    public String confirm(@PathVariable("numCita") int numCita, @Valid Patient patient,
+    @GetMapping("/confirmar/{numCita}")
+    public String confirm(@PathVariable("numCita") int numCita, Patient patient,
                           BindingResult result, Model model) {
         try {
             if (result.hasErrors()) {
-                return "appointments";
+                List<Patient> appointment = service.searchByNumber(numCita);
+                patient = appointment.get(0);
+                /*Appointment appointment = new Appointment();
+                appointment.setNumCita(numCita);
+                patient.setAppointment(appointment);*/
+                return "confirm";
             }
 
-            service.updateAppointment(patient);
+            service.updateAppointment(numCita);
             List<Patient> arrayAppointments = service.allAppointments();
             model.addAttribute("arrayAppointments", arrayAppointments);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "appointments";
+    }
+
+    @GetMapping("/confirmar")
+    public String confirm(Model model) {
+        Patient patient = new Patient();
+        model.addAttribute("patient", patient);
+        return "confirm";
     }
 }

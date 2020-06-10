@@ -3,9 +3,9 @@ package cr.una.frontendWeb.sevice;
 import cr.una.frontendWeb.Constants;
 import cr.una.frontendWeb.model.Patient;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +16,7 @@ import java.util.List;
  */
 public class Service {
     private static final String REST_CITAS = Constants.WS_ENDPOINT.concat("citas");
+    private static final String REST_CITAS_CONFIRM = Constants.WS_ENDPOINT.concat("citas/confirmar");
     private Client client = null;
 
     public Service() {
@@ -72,7 +73,19 @@ public class Service {
         return result;
     }
 
-    public void updateAppointment(Patient patient) {
-        System.out.println(patient.toString());
+    public Patient searchAppointment(int numCita) throws Exception {
+        List<Patient> appointments = allAppointments();
+        for (Patient patient : appointments) {
+            if (patient.getAppointment().getNumCita() == numCita) {
+                return patient;
+            }
+        }
+        return null;
+    }
+
+    public void updateAppointment(int numCita) {
+        boolean result = false;
+        result = client.target(REST_CITAS_CONFIRM).path(Integer.toString(numCita)).request(MediaType.APPLICATION_JSON)
+                .get(boolean.class);
     }
 }
